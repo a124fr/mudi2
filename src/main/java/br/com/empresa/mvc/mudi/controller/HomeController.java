@@ -28,30 +28,10 @@ public class HomeController {
 //	}
 	
 	@GetMapping
-	public String home(Model model, Principal principal) {		
-		List<Pedido> pedidos = this.pedidoRepository.findByUsuario(principal.getName());		
+	public String home(Model model) {		
+		List<Pedido> pedidos = this.pedidoRepository.findByStatus(StatusPedido.ENTREGUE);		
 		model.addAttribute("pedidos", pedidos);
 		return "home";
 	}
-	
-	@GetMapping("/{status}")
-	public String porStatus(@PathVariable("status") String status, Model model) {		
-		List<Pedido> pedidos = this.pedidoRepository.findByStatus(StatusPedido.valueOf(status.toUpperCase()));		
-		model.addAttribute("pedidos", pedidos);
-		model.addAttribute("status", status);
-		return "home";
-	}
-	
-	@ExceptionHandler(IllegalArgumentException.class)
-	public String onError() {
-		return "redirect:/home";
-	}
-	
-//	@GetMapping("/home")
-//	public ModelAndView home() {
-//	    List<Pedido> pedidos = repository.findAll();
-//	    ModelAndView mv = new ModelAndView("home");
-//	    mv.addObject("pedidos", pedidos);
-//	    return mv; 
-//	}  
+		  
 }
