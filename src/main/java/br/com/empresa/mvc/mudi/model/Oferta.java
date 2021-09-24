@@ -11,6 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "ofertas")
 public class Oferta {
@@ -24,8 +28,9 @@ public class Oferta {
 	private LocalDate dataEntrega;
 
 	private String comentario;
-
-	@ManyToOne(fetch = FetchType.LAZY)
+	
+	@JsonIgnore	
+	@ManyToOne(fetch = FetchType.LAZY)	
 	private Pedido pedido;
 
 	public Long getId() {
