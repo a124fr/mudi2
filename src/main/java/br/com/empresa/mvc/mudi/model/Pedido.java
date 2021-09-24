@@ -19,9 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "pedidos")
 public class Pedido {
@@ -46,7 +44,8 @@ public class Pedido {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
 	
-	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)	
 	private List<Oferta> ofertas = new ArrayList<>();
 
 	public String getNomeProduto() {
